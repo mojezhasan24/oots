@@ -119,29 +119,29 @@ public class SmartAttendanceSystemv2 {
  * for a consistent and easily changeable look and feel.
  */
 class UIConstants {
-    // Enhanced Light UI Palette - Soft & Professional
-    public static final Color PRIMARY = new Color(79, 139, 255); // Softer blue
-    public static final Color PRIMARY_LIGHT = new Color(235, 242, 255); // Light blue for backgrounds
-    public static final Color PRIMARY_DARK = new Color(41, 109, 225); // Darker blue for accents
-    public static final Color BACKGROUND = new Color(248, 250, 253); // Softer background
-    public static final Color SURFACE = Color.WHITE; // Pure white surfaces
-    public static final Color TEXT_DARK = new Color(51, 51, 51); // Rich dark text
-    public static final Color TEXT_MEDIUM = new Color(102, 102, 102); // Medium text
-    public static final Color TEXT_LIGHT = new Color(153, 153, 153); // Light text
-    public static final Color BORDER = new Color(230, 235, 242); // Soft border
-    public static final Color HOVER = new Color(245, 248, 255); // Hover state
-    public static final Color SHADOW = new Color(200, 200, 200, 30); // Subtle shadow
+    // Enhanced Light UI Palette - Soft & Sober
+    public static final Color PRIMARY = new Color(100, 149, 237); // Cornflower blue
+    public static final Color PRIMARY_LIGHT = new Color(240, 248, 255); // Softer blue for backgrounds
+    public static final Color PRIMARY_DARK = new Color(70, 130, 180); // Steel blue for accents
+    public static final Color BACKGROUND = new Color(250, 252, 255); // Very light background
+    public static final Color SURFACE = new Color(255, 255, 255); // Pure white surfaces
+    public static final Color TEXT_DARK = new Color(60, 60, 60); // Softer dark text
+    public static final Color TEXT_MEDIUM = new Color(120, 120, 120); // Medium text
+    public static final Color TEXT_LIGHT = new Color(180, 180, 180); // Light text
+    public static final Color BORDER = new Color(240, 240, 245); // Very soft border
+    public static final Color HOVER = new Color(248, 250, 255); // Hover state
+    public static final Color SHADOW = new Color(210, 210, 220, 20); // Very subtle shadow
 
-    // Enhanced Semantic Colors
-    public static final Color SUCCESS = new Color(52, 199, 129); // Vibrant green
-    public static final Color SUCCESS_LIGHT = new Color(235, 250, 242); // Light success bg
-    public static final Color SUCCESS_DARK = new Color(35, 155, 86); // Dark success text
-    public static final Color WARNING = new Color(245, 185, 66); // Warm yellow
-    public static final Color WARNING_LIGHT = new Color(255, 248, 235); // Light warning bg
-    public static final Color WARNING_DARK = new Color(210, 145, 30); // Dark warning text
-    public static final Color ERROR = new Color(235, 87, 87); // Soft red
-    public static final Color ERROR_LIGHT = new Color(255, 240, 240); // Light error bg
-    public static final Color ERROR_DARK = new Color(192, 57, 43); // Dark error text
+    // Enhanced Semantic Colors - Softer Tones
+    public static final Color SUCCESS = new Color(92, 184, 92); // Soft green
+    public static final Color SUCCESS_LIGHT = new Color(242, 252, 242); // Very light success bg
+    public static final Color SUCCESS_DARK = new Color(60, 146, 60); // Darker muted green
+    public static final Color WARNING = new Color(240, 173, 78); // Soft orange
+    public static final Color WARNING_LIGHT = new Color(252, 248, 240); // Very light warning bg
+    public static final Color WARNING_DARK = new Color(198, 142, 64); // Darker muted orange
+    public static final Color ERROR = new Color(217, 108, 108); // Soft red
+    public static final Color ERROR_LIGHT = new Color(252, 242, 242); // Very light error bg
+    public static final Color ERROR_DARK = new Color(169, 84, 84); // Darker muted red
 
     // Enhanced Fonts with better hierarchy
     public static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24); // Larger titles
@@ -1088,13 +1088,13 @@ class NeumorphicButton extends JButton {
 
     public NeumorphicButton(String text) {
         super(text);
-        base = UIConstants.BACKGROUND_LIGHT;
+    base = UIConstants.SURFACE;
         setContentAreaFilled(false);
         setFocusPainted(false);
         setBorderPainted(false);
-        setFont(UIConstants.FONT_BODY_BOLD);
+    setFont(UIConstants.BUTTON_FONT);
         setPreferredSize(new Dimension(160, 42));
-        setForeground(UIConstants.TEXT_PRIMARY);
+    setForeground(UIConstants.TEXT_DARK);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
@@ -2308,9 +2308,9 @@ class AdminUserManagementPanel extends JPanel {
         
         loadUsers();
         
-        JScrollPane scrollPane = new JScrollPane(userTable);
-        scrollPane.setBorder(BorderFactory.createLineBorder(UIConstants.BORDER));
-        add(scrollPane, BorderLayout.CENTER);
+    JScrollPane scrollPane = new JScrollPane(userTable);
+    scrollPane.setBorder(BorderFactory.createLineBorder(UIConstants.BORDER));
+    add(new CardPanel(scrollPane), BorderLayout.CENTER);
         
         // Button Panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
@@ -2482,7 +2482,7 @@ class AdminAttendancePanel extends JPanel {
         northPanel.add(topPanel, BorderLayout.CENTER);
 
         add(northPanel, BorderLayout.NORTH);
-        add(new JScrollPane(attendanceTable), BorderLayout.CENTER);
+    add(new CardPanel(new JScrollPane(attendanceTable)), BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
     }
     
@@ -2694,17 +2694,17 @@ class AttendancePanel extends JPanel {
         
         topPanel.add(Box.createHorizontalStrut(20));
         
-        ModernButton markAllPresent = new ModernButton("✓ All Present");
-        markAllPresent.setPreferredSize(new Dimension(130, 35));
-        markAllPresent.setColors(UIConstants.SUCCESS, UIConstants.SUCCESS.darker(), UIConstants.SUCCESS.darker());
-        markAllPresent.addActionListener(e -> markAll(AttendanceStatus.PRESENT));
-        topPanel.add(markAllPresent);
+    NeumorphicButton markAllPresent = new NeumorphicButton("✓ All Present");
+    markAllPresent.setPreferredSize(new Dimension(130, 35));
+    markAllPresent.setBaseColor(UIConstants.SUCCESS);
+    markAllPresent.addActionListener(e -> markAll(AttendanceStatus.PRESENT));
+    topPanel.add(markAllPresent);
         
-        ModernButton markAllAbsent = new ModernButton("✗ All Absent");
-        markAllAbsent.setPreferredSize(new Dimension(130, 35));
-        markAllAbsent.setColors(UIConstants.ERROR, UIConstants.ERROR.darker(), UIConstants.ERROR.darker());
-        markAllAbsent.addActionListener(e -> markAll(AttendanceStatus.ABSENT));
-        topPanel.add(markAllAbsent);
+    NeumorphicButton markAllAbsent = new NeumorphicButton("✗ All Absent");
+    markAllAbsent.setPreferredSize(new Dimension(130, 35));
+    markAllAbsent.setBaseColor(UIConstants.ERROR);
+    markAllAbsent.addActionListener(e -> markAll(AttendanceStatus.ABSENT));
+    topPanel.add(markAllAbsent);
 
         // Table
         String[] columns = {"Roll No", "Student Name", "Status"};
@@ -2731,20 +2731,18 @@ class AttendancePanel extends JPanel {
         bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
-        ModernButton startBluetoothBtn = new ModernButton("📱 Start Bluetooth Portal");
+        NeumorphicButton startBluetoothBtn = new NeumorphicButton("📱 Start Bluetooth Portal");
         startBluetoothBtn.setPreferredSize(new Dimension(220, 45));
-        startBluetoothBtn.setColors(new Color(79, 70, 229), // Indigo color
-                                  new Color(67, 56, 202),
-                                  new Color(55, 48, 163));
+        startBluetoothBtn.setBaseColor(new Color(79, 70, 229));
         startBluetoothBtn.addActionListener(e -> startBluetoothAttendance());
         bottomPanel.add(startBluetoothBtn);
 
         bottomPanel.add(Box.createHorizontalStrut(12));
 
-        // Refresh button: reloads serialized data and updates UI entries
-        ModernButton refreshBtn = new ModernButton("🔄 Refresh");
+        // Refresh button: reloads serialized data and updates UI entries (neumorphic)
+        NeumorphicButton refreshBtn = new NeumorphicButton("🔄 Refresh");
         refreshBtn.setPreferredSize(new Dimension(140, 40));
-        refreshBtn.setColors(UIConstants.PRIMARY, UIConstants.PRIMARY.darker(), UIConstants.PRIMARY.darker());
+        refreshBtn.setBaseColor(UIConstants.PRIMARY);
         refreshBtn.addActionListener(e -> {
             // Reload persistent data
             DataManager.getInstance().loadAllData();
@@ -2766,8 +2764,9 @@ class AttendancePanel extends JPanel {
 
         bottomPanel.add(Box.createHorizontalStrut(12));
 
-        ModernButton saveBtn = new ModernButton("💾 Save Attendance");
+        NeumorphicButton saveBtn = new NeumorphicButton("💾 Save Attendance");
         saveBtn.setPreferredSize(new Dimension(200, 45));
+        saveBtn.setBaseColor(UIConstants.SUCCESS);
         saveBtn.addActionListener(e -> saveAttendance());
         bottomPanel.add(saveBtn);
 
@@ -2778,7 +2777,7 @@ class AttendancePanel extends JPanel {
         northPanel.add(topPanel, BorderLayout.CENTER);
 
         add(northPanel, BorderLayout.NORTH);
-        add(new JScrollPane(attendanceTable), BorderLayout.CENTER);
+    add(new CardPanel(new JScrollPane(attendanceTable)), BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
     }
     
