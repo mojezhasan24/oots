@@ -1,0 +1,30 @@
+# Ignore compiled class files
+*.class
+
+# Ignore jar files
+*.jar
+
+# Ignore serialized data files
+*.ser
+
+# Ignore temporary build and output folders
+/out/
+/bin/
+/build/
+
+# Ignore log files and temp data
+*.log
+*.tmp
+*.swp
+
+# Ignore VSCode, IntelliJ, Eclipse project files
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db

@@ -1080,6 +1080,134 @@ class ModernButton extends JButton {
 }
 
 /**
+ * A soft neumorphic-style button with subtle inner/outer shadows.
+ */
+class NeumorphicButton extends JButton {
+    private Color base;
+    private int radius = 14;
+
+    public NeumorphicButton(String text) {
+        super(text);
+        base = UIConstants.BACKGROUND_LIGHT;
+        setContentAreaFilled(false);
+        setFocusPainted(false);
+        setBorderPainted(false);
+        setFont(UIConstants.FONT_BODY_BOLD);
+        setPreferredSize(new Dimension(160, 42));
+        setForeground(UIConstants.TEXT_PRIMARY);
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    public void setBaseColor(Color c) {
+        this.base = c;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int w = getWidth();
+        int h = getHeight();
+
+        // Outer shadow
+        g2.setColor(new Color(0,0,0,20));
+        g2.fillRoundRect(4, 4, w-8, h-8, radius, radius);
+
+        // Button face
+        g2.setColor(base);
+        g2.fillRoundRect(0, 0, w-8, h-8, radius, radius);
+
+        // Highlight/inner shadow
+        g2.setColor(new Color(255,255,255,120));
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
+        g2.fillRoundRect(0, 0, w-8, (h-8)/2, radius, radius);
+
+        // Text
+        g2.setComposite(AlphaComposite.SrcOver);
+        g2.setColor(getForeground());
+        FontMetrics fm = g2.getFontMetrics(getFont());
+        String text = getText();
+        int tx = (w - fm.stringWidth(text)) / 2 - 4;
+        int ty = (h + fm.getAscent() - fm.getDescent()) / 2 - 4;
+        g2.setFont(getFont());
+        g2.drawString(text, tx, ty);
+
+        g2.dispose();
+    }
+}
+
+/**
+ * GlassPanel: translucent rounded panel for glassmorphism effect.
+ */
+class GlassPanel extends JPanel {
+    private int arc = 20;
+    private Color glass = new Color(255, 255, 255, 180);
+
+    public GlassPanel() {
+        setOpaque(false);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int w = getWidth();
+        int h = getHeight();
+
+        // Soft shadow
+        g2.setColor(new Color(0,0,0,30));
+        g2.fillRoundRect(6, 6, w-12, h-12, arc, arc);
+
+        // Glassy panel
+        g2.setColor(glass);
+        g2.fillRoundRect(0, 0, w-12, h-12, arc, arc);
+        g2.dispose();
+
+        super.paintComponent(g);
+    }
+}
+
+/**
+ * CardPanel wraps content in a rounded translucent card with padding.
+ */
+class CardPanel extends JPanel {
+    private int arc = 16;
+    private Color bg = new Color(255, 255, 255, 220);
+
+    public CardPanel(Component content) {
+        setLayout(new BorderLayout());
+        setOpaque(false);
+        JPanel inner = new JPanel(new BorderLayout());
+        inner.setOpaque(false);
+        inner.add(content, BorderLayout.CENTER);
+        inner.setBorder(BorderFactory.createEmptyBorder(12,12,12,12));
+        add(inner, BorderLayout.CENTER);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int w = getWidth();
+        int h = getHeight();
+
+        // subtle shadow
+        g2.setColor(new Color(0,0,0,30));
+        g2.fillRoundRect(4, 6, w-8, h-8, arc, arc);
+
+        // card background
+        g2.setColor(bg);
+        g2.fillRoundRect(0, 0, w-8, h-8, arc, arc);
+        g2.dispose();
+
+        super.paintComponent(g);
+    }
+}
+
+/**
  * A modern text field with a rounded border and placeholder text.
  */
 class ModernTextField extends JTextField {
