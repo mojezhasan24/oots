@@ -87,10 +87,7 @@ public class SmartAttendanceSystemv2 {
             // Set a modern, cross-platform look and feel for better UI consistency
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-            // Apply global UI defaults for a cleaner look
-            UIManager.put("Panel.background", UIConstants.BACKGROUND);
-            UIManager.put("Frame.background", UIConstants.BACKGROUND);
-            UIManager.put("Dialog.background", UIConstants.BACKGROUND);
+            // Only set fonts, let system handle colors
             UIManager.put("Button.font", UIConstants.BUTTON_FONT);
             UIManager.put("Label.font", UIConstants.BODY_FONT);
             UIManager.put("TextField.font", UIConstants.BODY_FONT);
@@ -98,9 +95,6 @@ public class SmartAttendanceSystemv2 {
             UIManager.put("ComboBox.font", UIConstants.BODY_FONT);
             UIManager.put("Table.font", UIConstants.BODY_FONT);
             UIManager.put("TableHeader.font", UIConstants.HEADER_FONT);
-            UIManager.put("OptionPane.background", UIConstants.SURFACE);
-            UIManager.put("Panel.background", UIConstants.SURFACE);
-            UIManager.put("OptionPane.messageForeground", UIConstants.TEXT_DARK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,29 +113,29 @@ public class SmartAttendanceSystemv2 {
  * for a consistent and easily changeable look and feel.
  */
 class UIConstants {
-    // Enhanced Light UI Palette - Soft & Sober
-    public static final Color PRIMARY = new Color(100, 149, 237); // Cornflower blue
-    public static final Color PRIMARY_LIGHT = new Color(240, 248, 255); // Softer blue for backgrounds
-    public static final Color PRIMARY_DARK = new Color(70, 130, 180); // Steel blue for accents
-    public static final Color BACKGROUND = new Color(250, 252, 255); // Very light background
-    public static final Color SURFACE = new Color(255, 255, 255); // Pure white surfaces
-    public static final Color TEXT_DARK = new Color(60, 60, 60); // Softer dark text
-    public static final Color TEXT_MEDIUM = new Color(120, 120, 120); // Medium text
-    public static final Color TEXT_LIGHT = new Color(180, 180, 180); // Light text
-    public static final Color BORDER = new Color(240, 240, 245); // Very soft border
-    public static final Color HOVER = new Color(248, 250, 255); // Hover state
-    public static final Color SHADOW = new Color(210, 210, 220, 20); // Very subtle shadow
+    // Modern Flat UI Colors - Light & Professional
+    public static final Color PRIMARY = new Color(66, 133, 244); // Google Blue
+    public static final Color PRIMARY_LIGHT = new Color(232, 240, 254); // Light blue background
+    public static final Color PRIMARY_DARK = new Color(25, 103, 210); // Dark blue for contrast
+    public static final Color BACKGROUND = Color.WHITE; // Standard white background
+    public static final Color SURFACE = Color.WHITE; // Standard white surface
+    public static final Color TEXT_DARK = new Color(32, 33, 36); // Google's dark grey
+    public static final Color TEXT_MEDIUM = new Color(95, 99, 104); // Google's medium grey
+    public static final Color TEXT_LIGHT = new Color(128, 134, 139); // Google's light grey
+    public static final Color BORDER = new Color(218, 220, 224); // Light border
+    public static final Color HOVER = new Color(245, 245, 245); // Light hover effect
+    public static final Color SHADOW = new Color(0, 0, 0, 10); // Very subtle shadow
 
-    // Enhanced Semantic Colors - Softer Tones
-    public static final Color SUCCESS = new Color(92, 184, 92); // Soft green
-    public static final Color SUCCESS_LIGHT = new Color(242, 252, 242); // Very light success bg
-    public static final Color SUCCESS_DARK = new Color(60, 146, 60); // Darker muted green
-    public static final Color WARNING = new Color(240, 173, 78); // Soft orange
-    public static final Color WARNING_LIGHT = new Color(252, 248, 240); // Very light warning bg
-    public static final Color WARNING_DARK = new Color(198, 142, 64); // Darker muted orange
-    public static final Color ERROR = new Color(217, 108, 108); // Soft red
-    public static final Color ERROR_LIGHT = new Color(252, 242, 242); // Very light error bg
-    public static final Color ERROR_DARK = new Color(169, 84, 84); // Darker muted red
+    // Standard Semantic Colors
+    public static final Color SUCCESS = new Color(52, 168, 83); // Google green
+    public static final Color SUCCESS_LIGHT = new Color(230, 244, 234); // Light green bg
+    public static final Color SUCCESS_DARK = new Color(30, 142, 62); // Dark green
+    public static final Color WARNING = new Color(251, 188, 4); // Google yellow
+    public static final Color WARNING_LIGHT = new Color(254, 247, 224); // Light yellow bg
+    public static final Color WARNING_DARK = new Color(217, 156, 0); // Dark yellow
+    public static final Color ERROR = new Color(234, 67, 53); // Google red
+    public static final Color ERROR_LIGHT = new Color(252, 232, 230); // Light red bg
+    public static final Color ERROR_DARK = new Color(179, 29, 18); // Dark red
 
     // Enhanced Fonts with better hierarchy
     public static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24); // Larger titles
@@ -1142,10 +1136,11 @@ class NeumorphicButton extends JButton {
  */
 class GlassPanel extends JPanel {
     private int arc = 20;
-    private Color glass = new Color(255, 255, 255, 180);
+    private Color glass = new Color(255, 255, 255, 245); // More opaque for better contrast
 
     public GlassPanel() {
         setOpaque(false);
+        setBackground(Color.WHITE);
     }
 
     @Override
@@ -1174,13 +1169,15 @@ class GlassPanel extends JPanel {
  */
 class CardPanel extends JPanel {
     private int arc = 16;
-    private Color bg = new Color(255, 255, 255, 220);
+    private Color bg = Color.WHITE;
 
     public CardPanel(Component content) {
         setLayout(new BorderLayout());
-        setOpaque(false);
+        setOpaque(true);
+        setBackground(Color.WHITE);
         JPanel inner = new JPanel(new BorderLayout());
-        inner.setOpaque(false);
+        inner.setOpaque(true);
+        inner.setBackground(Color.WHITE);
         inner.add(content, BorderLayout.CENTER);
         inner.setBorder(BorderFactory.createEmptyBorder(12,12,12,12));
         add(inner, BorderLayout.CENTER);
@@ -1216,11 +1213,11 @@ class ModernTextField extends JTextField {
 
     public ModernTextField(int columns) {
         super(columns);
-        setOpaque(false);
-        setBackground(UIConstants.SURFACE);
+        setOpaque(true);
+        setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
         setFont(UIConstants.BODY_FONT);
-        setForeground(UIConstants.TEXT_DARK);
+        setForeground(Color.BLACK);
         setBorder(new RoundedBorder(12, true)); // Add shadow
         setCursor(new Cursor(Cursor.TEXT_CURSOR));
     }
@@ -1278,11 +1275,11 @@ class ModernPasswordField extends JPasswordField {
 
     public ModernPasswordField(int columns) {
         super(columns);
-        setOpaque(false);
-        setBackground(UIConstants.SURFACE);
+        setOpaque(true);
+        setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
         setFont(UIConstants.BODY_FONT);
-        setForeground(UIConstants.TEXT_DARK);
+        setForeground(Color.BLACK);
         setBorder(new RoundedBorder(12, true)); // Add shadow
         setCursor(new Cursor(Cursor.TEXT_CURSOR));
     }
@@ -1549,154 +1546,213 @@ class SubjectCardIcon implements Icon {
 class LoginFrame extends JFrame {
     private ModernTextField usernameField;
     private ModernPasswordField passwordField;
+    private CardLayout cardLayout;
+    private JPanel roleCardPanel;
 
     public LoginFrame() {
-        setTitle("Smart Attendance System - Login");
-        setSize(500, 620);
+        setTitle("Smart Attendance System");
+        setSize(1000, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
+        setMinimumSize(new Dimension(800, 600));
         
         initComponents();
         setVisible(true);
     }
 
     private void initComponents() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        // Main split layout
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2));
         mainPanel.setBackground(UIConstants.BACKGROUND);
 
-        // Header Panel with gradient effect
-        JPanel headerPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-                // Create gradient
-                GradientPaint gradient = new GradientPaint(
-                    0, 0, UIConstants.PRIMARY,
-                    getWidth(), getHeight(), UIConstants.PRIMARY_DARK);
-                g2.setPaint(gradient);
-                g2.fillRect(0, 0, getWidth(), getHeight());
-                g2.dispose();
-            }
-        };
-        headerPanel.setPreferredSize(new Dimension(500, 150));
-        headerPanel.setLayout(new GridBagLayout());
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(5, 0, 0, 0);
-
-        // 
-        JLabel iconLabel = new JLabel("✓"); // Simple icon
-        iconLabel.setFont(new Font("Segoe UI Symbol", Font.BOLD, 48));
-        iconLabel.setForeground(Color.WHITE);
-        headerPanel.add(iconLabel, gbc);
-
-        gbc.gridy = 1;
-        JLabel titleLabel = new JLabel("Smart Attendance System");
-        titleLabel.setFont(UIConstants.TITLE_FONT);
-        titleLabel.setForeground(Color.WHITE);
-        headerPanel.add(titleLabel, gbc);
-
-        gbc.gridy = 2;
-        gbc.insets = new Insets(5, 0, 10, 0);
-        JLabel subtitleLabel = new JLabel("Secure Login Portal");
-        subtitleLabel.setFont(UIConstants.BODY_FONT);
-        subtitleLabel.setForeground(new Color(220, 220, 240));
-        headerPanel.add(subtitleLabel, gbc);
-
-        // Form Panel - Card style with shadow
-        JPanel formCard = new JPanel() {
+        // Left Panel - Branding & Graphics
+        JPanel brandPanel = new GradientPanel(UIConstants.PRIMARY, UIConstants.PRIMARY_DARK, true) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                // Draw shadow
-                g2.setColor(UIConstants.SHADOW);
-                for (int i = 0; i < 5; i++) {
-                    g2.drawRoundRect(i, i, getWidth() - 1 - i*2, getHeight() - 1 - i*2, 15, 15);
-                }
-                // Draw card background
-                g2.setColor(UIConstants.SURFACE);
-                g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
+                
+                // Draw decorative circles
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
+                g2.setColor(Color.WHITE);
+                g2.fillOval(-50, -50, 200, 200);
+                g2.fillOval(getWidth() - 100, getHeight() - 100, 300, 300);
                 g2.dispose();
             }
         };
-        formCard.setLayout(new GridBagLayout());
-        formCard.setBorder(BorderFactory.createEmptyBorder(40, 40, 30, 40));
-        formCard.setPreferredSize(new Dimension(420, 500));
-
-        // This panel will be centered inside the mainPanel
-        JPanel centerPanel = new JPanel(new GridBagLayout());
-        centerPanel.setBackground(UIConstants.BACKGROUND);
-        centerPanel.add(formCard);
-
-        gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 5, 0);
+        brandPanel.setLayout(new GridBagLayout());
+        
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
-
-        // Username
         gbc.gridy = 0;
-        JLabel userLabel = new JLabel("Username");
-        userLabel.setFont(UIConstants.HEADER_FONT);
-        userLabel.setForeground(UIConstants.TEXT_DARK);
-        formCard.add(userLabel, gbc);
+        gbc.insets = new Insets(0, 40, 10, 40);
+        
+        // Brand Icon
+        JLabel iconLabel = new JLabel("✓");
+        iconLabel.setFont(new Font("Segoe UI Symbol", Font.BOLD, 72));
+        iconLabel.setForeground(Color.WHITE);
+        brandPanel.add(iconLabel, gbc);
 
         gbc.gridy = 1;
-        gbc.insets = new Insets(0, 0, 10, 0);
+        JLabel titleLabel = new JLabel("Smart Attendance");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 36));
+        titleLabel.setForeground(Color.WHITE);
+        brandPanel.add(titleLabel, gbc);
+
+        gbc.gridy = 2;
+        JLabel subtitleLabel = new JLabel("System");
+        subtitleLabel.setFont(new Font("Segoe UI", Font.BOLD, 32));
+        subtitleLabel.setForeground(new Color(255, 255, 255, 220));
+        brandPanel.add(subtitleLabel, gbc);
+
+        // Right Panel - Login Form
+        JPanel loginPanel = new JPanel(new GridBagLayout());
+        loginPanel.setBackground(UIConstants.BACKGROUND);
+        
+        // Wrap form in a glass card
+        JPanel formCard = new GlassPanel();
+        formCard.setLayout(new BorderLayout(20, 20));
+        formCard.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
+        formCard.setPreferredSize(new Dimension(450, 600));
+        
+        // Form Content
+        JPanel formContent = new JPanel(new GridBagLayout());
+        formContent.setOpaque(false);
+        
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 20, 0);
+        
+        // Welcome text
+        gbc.gridy = 0;
+        JLabel welcomeLabel = new JLabel("Welcome Back");
+        welcomeLabel.setFont(UIConstants.TITLE_FONT);
+        welcomeLabel.setForeground(UIConstants.TEXT_DARK);
+        formContent.add(welcomeLabel, gbc);
+        
+        gbc.gridy = 1;
+        JLabel loginLabel = new JLabel("Sign in to continue");
+        loginLabel.setFont(UIConstants.SUBTITLE_FONT);
+        loginLabel.setForeground(UIConstants.TEXT_MEDIUM);
+        formContent.add(loginLabel, gbc);
+
+        // Role selector cards
+        gbc.gridy = 2;
+        gbc.insets = new Insets(20, 0, 30, 0);
+        cardLayout = new CardLayout();
+        roleCardPanel = new JPanel(cardLayout);
+        roleCardPanel.setOpaque(false);
+        
+        // Create role cards
+        String[] roles = {"Admin", "Teacher", "Student"};
+        JPanel roleCards = new JPanel(new GridLayout(1, 3, 10, 0));
+        roleCards.setOpaque(false);
+        
+        for (String role : roles) {
+            JPanel card = new JPanel();
+            card.setLayout(new BorderLayout());
+            card.setBackground(UIConstants.SURFACE);
+            card.setBorder(BorderFactory.createCompoundBorder(
+                new RoundedBorder(8),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)
+            ));
+            card.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            
+            JLabel roleIcon = new JLabel(getRoleIcon(role), SwingConstants.CENTER);
+            JLabel roleLabel = new JLabel(role, SwingConstants.CENTER);
+            roleLabel.setFont(UIConstants.BODY_FONT);
+            roleLabel.setForeground(UIConstants.TEXT_DARK);
+            
+            card.add(roleIcon, BorderLayout.CENTER);
+            card.add(roleLabel, BorderLayout.SOUTH);
+            
+            card.addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent e) {
+                    card.setBackground(UIConstants.PRIMARY_LIGHT);
+                }
+                public void mouseExited(MouseEvent e) {
+                    card.setBackground(UIConstants.SURFACE);
+                }
+                public void mouseClicked(MouseEvent e) {
+                    // Visual feedback
+                    card.setBackground(UIConstants.PRIMARY_LIGHT);
+                }
+            });
+            
+            roleCards.add(card);
+        }
+        formContent.add(roleCards, gbc);
+
+        // Username field
+        gbc.gridy = 3;
+        gbc.insets = new Insets(0, 0, 20, 0);
+        JLabel userLabel = new JLabel("Username");
+        userLabel.setFont(UIConstants.BODY_BOLD_FONT);
+        userLabel.setForeground(UIConstants.TEXT_DARK);
+        formContent.add(userLabel, gbc);
+
+        gbc.gridy = 4;
+        gbc.insets = new Insets(0, 0, 25, 0);
         usernameField = new ModernTextField(20);
         usernameField.setPlaceholder("Enter your username");
-        usernameField.setPreferredSize(new Dimension(380, 55));
-        formCard.add(usernameField, gbc);
+        formContent.add(usernameField, gbc);
 
-        // Password
-        gbc.gridy = 2;
-        gbc.insets = new Insets(10, 0, 5, 0);
+        // Password field
+        gbc.gridy = 5;
+        gbc.insets = new Insets(0, 0, 20, 0);
         JLabel passLabel = new JLabel("Password");
-        passLabel.setFont(UIConstants.HEADER_FONT);
+        passLabel.setFont(UIConstants.BODY_BOLD_FONT);
         passLabel.setForeground(UIConstants.TEXT_DARK);
-        formCard.add(passLabel, gbc);
+        formContent.add(passLabel, gbc);
 
-        gbc.gridy = 3;
-        gbc.insets = new Insets(0, 0, 10, 0);
+        gbc.gridy = 6;
+        gbc.insets = new Insets(0, 0, 30, 0);
         passwordField = new ModernPasswordField(20);
         passwordField.setPlaceholder("Enter your password");
-        passwordField.setPreferredSize(new Dimension(380, 55));
         passwordField.addActionListener(e -> handleLogin());
-        formCard.add(passwordField, gbc);
+        formContent.add(passwordField, gbc);
 
-        // Login Button
-        gbc.gridy = 4;
-        gbc.insets = new Insets(25, 0, 10, 0);
-        ModernButton loginButton = new ModernButton("LOGIN");
-        loginButton.setPreferredSize(new Dimension(380, 55));
+        // Login button
+        gbc.gridy = 7;
+        gbc.insets = new Insets(0, 0, 30, 0);
+        ModernButton loginButton = new ModernButton("Sign In");
+        loginButton.setPreferredSize(new Dimension(380, 50));
         loginButton.addActionListener(e -> handleLogin());
-        formCard.add(loginButton, gbc);
-        
-        // --- REGISTRATION REMOVED ---
-        // The "New student? Register here" panel has been removed
-        // as per the requirement. Registration is now admin-only.
+        formContent.add(loginButton, gbc);
 
-        // Info Label
-        gbc.gridy = 5;
-        gbc.insets = new Insets(25, 0, 10, 0);
-        JLabel infoLabel = new JLabel("<html><center><b>Demo Credentials</b><br>" +
+        // Demo credentials
+        gbc.gridy = 8;
+        JLabel infoLabel = new JLabel("<html><div style='text-align: center; color: #666;'>" +
+            "<b>Demo Credentials</b><br>" +
             "Admin: admin / admin123<br>" +
             "Teacher: teacher / teacher123<br>" +
-            "Student: priya / priya123</center></html>");
-        infoLabel.setFont(UIConstants.BODY_FONT);
-        infoLabel.setForeground(UIConstants.TEXT_LIGHT);
-        formCard.add(infoLabel, gbc);
-        
-        mainPanel.add(headerPanel, BorderLayout.NORTH);
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
+            "Student: priya / priya123" +
+            "</div></html>");
+        infoLabel.setFont(UIConstants.CAPTION_FONT);
+        infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        formContent.add(infoLabel, gbc);
 
-        add(mainPanel);
+        formCard.add(formContent, BorderLayout.CENTER);
+        loginPanel.add(formCard);
+
+        // Add panels to main split
+        mainPanel.add(brandPanel);
+        mainPanel.add(loginPanel);
+
+        // Add to frame
+        setContentPane(mainPanel);
+    }
+
+    private String getRoleIcon(String role) {
+        switch (role) {
+            case "Admin": return "👑";
+            case "Teacher": return "👩‍🏫";
+            case "Student": return "👨‍🎓";
+            default: return "👤";
+        }
     }
 
     private void handleLogin() {
@@ -1878,13 +1934,13 @@ class AddUserDialog extends JDialog {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         buttonPanel.setBackground(Color.WHITE);
 
-        ModernButton createBtn = new ModernButton("Create User");
+        NeumorphicButton createBtn = new NeumorphicButton("Create User");
         createBtn.setPreferredSize(new Dimension(150, 40));
         createBtn.addActionListener(e -> handleCreation());
 
-        ModernButton cancelBtn = new ModernButton("Cancel");
+        NeumorphicButton cancelBtn = new NeumorphicButton("Cancel");
         cancelBtn.setPreferredSize(new Dimension(130, 40));
-        cancelBtn.setColors(UIConstants.TEXT_LIGHT, UIConstants.TEXT_LIGHT.darker(), UIConstants.TEXT_LIGHT.darker());
+        cancelBtn.setBaseColor(UIConstants.TEXT_LIGHT);
         cancelBtn.addActionListener(e -> dispose());
         
         buttonPanel.add(createBtn);
@@ -2088,9 +2144,10 @@ abstract class BaseDashboardFrame extends JFrame {
         titleLabel.setFont(UIConstants.TITLE_FONT);
         titleLabel.setForeground(Color.WHITE);
         
-        ModernButton logoutBtn = new ModernButton("Logout");
+        NeumorphicButton logoutBtn = new NeumorphicButton("Logout");
         logoutBtn.setPreferredSize(new Dimension(100, 35));
-        logoutBtn.setColors(UIConstants.ERROR, UIConstants.ERROR.darker(), UIConstants.ERROR.darker());
+        logoutBtn.setBaseColor(UIConstants.ERROR_LIGHT);
+        logoutBtn.setForeground(UIConstants.ERROR_DARK);
         logoutBtn.addActionListener(e -> logout());
         
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 18));
@@ -2316,14 +2373,16 @@ class AdminUserManagementPanel extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         buttonPanel.setBackground(Color.WHITE);
         
-        ModernButton addUserBtn = new ModernButton("＋ Add User");
+        NeumorphicButton addUserBtn = new NeumorphicButton("＋ Add User");
         addUserBtn.setPreferredSize(new Dimension(140, 40));
-        addUserBtn.setColors(UIConstants.SUCCESS, UIConstants.SUCCESS.darker(), UIConstants.SUCCESS.darker());
+        addUserBtn.setBaseColor(UIConstants.SUCCESS_LIGHT);
+        addUserBtn.setForeground(UIConstants.SUCCESS_DARK);
         addUserBtn.addActionListener(e -> openAddUserDialog());
         
-        ModernButton removeUserBtn = new ModernButton("− Remove User");
+        NeumorphicButton removeUserBtn = new NeumorphicButton("− Remove User");
         removeUserBtn.setPreferredSize(new Dimension(160, 40));
-        removeUserBtn.setColors(UIConstants.ERROR, UIConstants.ERROR.darker(), UIConstants.ERROR.darker());
+        removeUserBtn.setBaseColor(UIConstants.ERROR_LIGHT);
+        removeUserBtn.setForeground(UIConstants.ERROR_DARK);
         removeUserBtn.addActionListener(e -> removeSelectedUser());
         
         buttonPanel.add(addUserBtn);
@@ -2469,9 +2528,10 @@ class AdminAttendancePanel extends JPanel {
         bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
-        ModernButton saveBtn = new ModernButton("✔ Save Changes");
+        NeumorphicButton saveBtn = new NeumorphicButton("✔ Save Changes");
         saveBtn.setPreferredSize(new Dimension(220, 45));
-        saveBtn.setColors(UIConstants.SUCCESS, UIConstants.SUCCESS.darker(), UIConstants.SUCCESS.darker());
+        saveBtn.setBaseColor(UIConstants.SUCCESS_LIGHT);
+        saveBtn.setForeground(UIConstants.SUCCESS_DARK);
         saveBtn.addActionListener(e -> saveAttendance());
         bottomPanel.add(saveBtn);
 
@@ -2902,11 +2962,10 @@ class AttendancePanel extends JPanel {
         contentPanel.add(statusLabel, BorderLayout.CENTER);
 
         // Add stop button
-        ModernButton stopBtn = new ModernButton("Stop Attendance Portal");
+        NeumorphicButton stopBtn = new NeumorphicButton("Stop Attendance Portal");
         stopBtn.setPreferredSize(new Dimension(200, 40));
-        stopBtn.setColors(UIConstants.ERROR, 
-                         UIConstants.ERROR.darker(),
-                         UIConstants.ERROR.darker());
+        stopBtn.setBaseColor(UIConstants.ERROR_LIGHT);
+        stopBtn.setForeground(UIConstants.ERROR_DARK);
         stopBtn.addActionListener(e -> stopAttendancePortal());
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -3219,8 +3278,10 @@ class ApplyLeavePanel extends JPanel {
         gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(20, 0, 0, 0);
-        ModernButton submitBtn = new ModernButton("Submit Leave Application");
+        NeumorphicButton submitBtn = new NeumorphicButton("Submit Leave Application");
         submitBtn.setPreferredSize(new Dimension(300, 45));
+        submitBtn.setBaseColor(UIConstants.PRIMARY_LIGHT);
+        submitBtn.setForeground(UIConstants.PRIMARY_DARK);
         submitBtn.addActionListener(e -> submitLeave());
         formPanel.add(submitBtn, gbc);
         
